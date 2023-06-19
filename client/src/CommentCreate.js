@@ -7,7 +7,9 @@ const CommentCreate=({postId})=>{
    const onSubmit=async(e)=>{
       e.preventDefault();
       try{
-         
+         await axios.post(`http://localhost:4001/posts/${{postId}}/comments`,{
+            content
+         })
       }catch(err){
 
       }
@@ -23,6 +25,8 @@ const CommentCreate=({postId})=>{
                   id="comment"
                   onChange={(e)=>setContent(e.target.value)}
                   value={content}
+                  style={{marginBottom:'0.5rem'}}
+                  placeholder="add comment"
                />
             </div>
             <button className="btn btn-primary">Submit</button>
