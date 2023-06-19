@@ -13,7 +13,7 @@ const commentsByPostId={
 
 //getting my post id from my req.params
 app.get('/posts/:id/comments',(req,res)=>{
-   res.status(200).json(commentsByPostId[req.params.id] || id);
+   res.status(200).json(commentsByPostId[req.params.id] || []);
 })
 
 //getting my post id from my req.params
@@ -25,7 +25,7 @@ app.post('/posts/:id/comments',(req,res)=>{
    comments.push({id:commentId,content});
    commentsByPostId[req.params.id]=comments;
 
-   res.status(201).json({success:true,comment:commentsByPostId[req.params.id]})
+   res.status(201).json(commentsByPostId[req.params.id]);
 })
 
 app.listen(4001,()=>{
