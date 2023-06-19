@@ -17,7 +17,7 @@ const PostCreate = () => {
       <div>
          <form onSubmit={onSubmit}>
             <div className="form-group">
-               <label for='title'>Title</label>
+               <label htmlFor='title'>Title</label>
                <input id="title" type="text" value={title} onChange={(e)=>setTitle(e.target.value)} />
                <button type='submit' className="btn btn-primary submit-post">Submit</button>
             </div>
