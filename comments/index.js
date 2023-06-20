@@ -1,6 +1,7 @@
 const express=require('express');
 const {randomBytes}=require('crypto');
 const cors=require('cors');
+const axios=require('axios');
 
 const app=express();
 
@@ -17,7 +18,7 @@ app.get('/posts/:id/comments',(req,res)=>{
 })
 
 //getting my post id from my req.params
-app.post('/posts/:id/comments',(req,res)=>{
+app.post('/posts/:id/comments',async(req,res)=>{
    const commentId=randomBytes(4).toString('hex');
    const {content}=req.body;
 
@@ -25,7 +26,22 @@ app.post('/posts/:id/comments',(req,res)=>{
    comments.push({id:commentId,content});
    commentsByPostId[req.params.id]=comments;
 
+   //sending to event bus:
+   await axios.post('http://localhost:4005/events',{
+      type:'commentCreated',
+      data:{
+         id:commentId,
+         content,
+         postId:req.params.id  
+      }
+   })
+
    res.status(201).json(commentsByPostId[req.params.id]);
+})
+
+app.post('/events',(req,res)=>{
+   console.log('Event recieved',req.body);
+   res.status(200).send('Event recieved from comments')
 })
 
 app.listen(4001,()=>{
