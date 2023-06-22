@@ -14,7 +14,8 @@ const posts={
       comments:[
          {
             id:'comment1',
-            content:'some comment to post 1'
+            content:'some comment to post 1',
+            status:['pending','approaved','rejected]
          }
       ]
    }
@@ -41,9 +42,18 @@ app.post('/events',(req,res)=>{
    }
 
    if(type==='commentCreated'){
-      const {id,content,postId}=data;
+      const {id,content,postId,status}=data;
       const post=posts[postId];
-      post.comments.push({id,content});
+      post.comments.push({id,content,status});
+   }
+
+   if(type==='commentUpdated'){
+      const {id,postId,content,status}=data;
+
+      const post=posts[postId];
+      const comment=post.comments.map(comment=>comment.id===id);
+      comment.status=status;
+      comment.content=content;
    }
 
    res.status(200).json({});
