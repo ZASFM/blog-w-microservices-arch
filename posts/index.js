@@ -15,7 +15,8 @@ app.get('/posts',(req,res)=>{
    res.status(200).json(posts);
 })
 
-app.post('/posts',async(req,res)=>{
+//unique path not equal to the query 
+app.post('/posts/create',async(req,res)=>{
    const id=randomBytes(4).toString('hex');
    const {title}=req.body;
    posts[id]={
