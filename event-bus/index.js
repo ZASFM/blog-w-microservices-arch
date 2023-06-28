@@ -13,13 +13,13 @@ app.post('/events',async (req,res)=>{
    events.push(event);
 
    //post service
-   await axios.post('http://localhost:4000/events',event).catch(err=>console.log(err));
+   await axios.post('http://posts-cluterip-srv:4000/events',event).catch(err=>console.log(err));
    //comments service
-   await axios.post('http://localhost:4001/events',event).catch(err=>console.log(err));
+   await axios.post('http://comments-srv:4001/events',event).catch(err=>console.log(err));
    //query service:
-   await axios.post('http://localhost:4002/events',event).catch(err=>console.log(err));
+   await axios.post('http://querz-srv:4002/events',event).catch(err=>console.log(err));
    //moderation service:
-   await axios.post('http://localhost:4003/events',event).catch(err=>console.log(err));
+   await axios.post('http://moderation-srv:4003/events',event).catch(err=>console.log(err));
 
    res.status(200).send('ok')
 })
