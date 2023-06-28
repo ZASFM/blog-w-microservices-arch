@@ -6,7 +6,8 @@ const PostCreate = () => {
 
    const onSubmit=async(e)=>{
       e.preventDefault();
-      await axios.post('http://localhost:4000/posts',{
+      ///create comes from because i have to assign a unique path to it to deffierente from get posts on query service
+      await axios.post('http://posts.com/posts/create',{
          title
       });
       setTitle('');
